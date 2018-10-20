@@ -3,14 +3,14 @@ import java.io.File;
 
 public class DirectedGraph {
 
-    // max number of directions for which an agent may use to traverse the
-    // environment
+    //max number of directions for which an agent may use to traverse the environment
     private static final int maxNumDirection = 8;
 
     protected ArrayList<ArrayList<Integer>> adjacencyList = new ArrayList<ArrayList<Integer>>();
     protected ArrayList<Integer> emptyLocation = new ArrayList<Integer>(Arrays.asList(-1, -1, -1, -1, -1, -1, -1, -1));
 
-    public DirectedGraph(Scanner sc) {
+    public DirectedGraph(Scanner sc) 
+    {
         int i = 0;
         while (sc.hasNext()) {
             ArrayList<Integer> adjacentLocations = new ArrayList<Integer>();
@@ -24,17 +24,21 @@ public class DirectedGraph {
 
         sc.close();
 
-        // map out connected locations
+        //map out connected locations
         System.out.println("adjacencyList.size(): " + adjacencyList.size());
         for (int m = 0; m < adjacencyList.size(); m++) {
             System.out.println("[" + m + "] => " + adjacencyList.get(m));
         }
     }
 
-    public ArrayList<Integer> getDirections(int location) {
-        if (location > -1) {
+    public ArrayList<Integer> getDirections( int location )
+    {
+        if (location > -1)
+        {
             return adjacencyList.get(location);
-        } else {
+        }
+        else
+        {
             return emptyLocation;
         }
     }

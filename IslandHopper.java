@@ -76,11 +76,12 @@ public class IslandHopper {
 		DirectedGraph graph = new DirectedGraph( sc );
 
 		//generate 1 agent
-		RFAgent agent = new RFAgent( initialState, goalState, strategy, graph );
+		RouteFindingAgent agent = new RouteFindingAgent( initialState, goalState, strategy, graph );
 
 		// run the solution from agent's strategy
-		ArrayList<String> solution = new ArrayList<String>();
-		solution = agent.runStrategy();
+		// ArrayList<String> solution = new ArrayList<String>();
+		// solution = agent.runStrategy();
+		agent.runStrategy();
 		return;
 	}
 

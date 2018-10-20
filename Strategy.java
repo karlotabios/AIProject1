@@ -4,32 +4,72 @@ import java.io.File;
 public abstract class Strategy {
 
 	protected ArrayList<Integer> fringe = new ArrayList<Integer>();
+	protected ArrayList<Integer> route = new ArrayList<Integer>();
 	protected int currentParentIndex;
 	protected int currentChildIndex;
-	protected int numInvalidLocations;
-	protected int maxNumChildren;
+	private static int maxNumChildren;
 
-	public Strategy(int maxNumDirections, int initialState, int initialFringe) {
+	public Strategy( int maxNumDirections, int initialState, ArrayList<Integer> initialFringe )
+	{
+		this.currentParentIndex = 0;
+		this.currentChildIndex = 0;
 		this.maxNumChildren = maxNumDirections;
-		this.currentParentIndex = initialState;
-		for (int i = 0; i < initialFringe.size(); i++) {
-			this.fringe.add(initialFringe.get(i));
+		this.fringe.add( initialState );
+		// extendFringe( initialFringe );
+	}
+
+	public abstract int traverse( ArrayList<Integer> childNodes );
+
+    protected void extendFringe( ArrayList<Integer> additionalFringe )
+	{
+    	for(int i = 0; i < additionalFringe.size(); i++)
+		{
+			fringe.add(additionalFringe.get(i));
 		}
-		this.numInvalidLocations = 0;
-	}
+		return;
+    }
 
-	public abstract void traverse();
+    private int getChild( int parentIndex, int rank ) 
+    {
+        //rank is from left to right (1 to 8 only; 1 to left-most, 8 to right-most);
+        return ( maxNumChildren * parentIndex ) + rank;
+    }
 
-	private static int getChild(int parent, int rank) {
-		// rank is from left to right (1 to 8 only; 1 to left-most, 8 to right-most);
-		return (maxNumChildren * parent) + rank;
-	}
+    private int getParentIndex( int child ) 
+    {
+    	int temp = (child - 1) / maxNumChildren;
+        return temp;
+    }
 
-	private int getParentIndex(int child) {
-		return child / maxNumChildren;
-	}
+    private void setNewParent( int parentIndex ) 
+    {
+    	currentChildIndex = parentIndex;
+    	return;
+    }
 
-	private void setNewParent(int parent) {
-		this.currentChildIndex = parent;
-	}
+    private int trackSequence( int childIndex )
+    {
+    	int parent = this.getParentIndex( childIndex );
+    	route.add(0, fringe.get( childIndex ) );
+    	if ( childIndex == parent )
+    	{
+    		return this.getParentIndex( childIndex );
+    	}
+    	return this.trackSequence( this.getParentIndex( childIndex ) );
+    }
+
+    public ArrayList<Integer> getRoute( int currentState )
+    {
+    	this.trackSequence( currentChildIndex );
+    	System.out.println( "\n" );
+    	return route;
+    }
+
+	// private void populateFringe()
+	// {
+	// 	if ( currentParentIndex != currentNodeIndex ) 
+	// 	{
+	// 		this.extendFringe( childNodes );
+	// 	}
+	// }
 }
