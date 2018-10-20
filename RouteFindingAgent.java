@@ -18,10 +18,9 @@ public class RouteFindingAgent {
 	{		
 		this.goalState = goalState;
 		this.environment = environment;
-
 		this.initialState = initialState;
 		this.currentState = this.initialState;
-		visitedLocations.add( initialState );
+		this.visitedLocations.add( initialState );
 
 		//run search strategy
 		if (strat.toLowerCase().equals("bfs"))
@@ -30,7 +29,7 @@ public class RouteFindingAgent {
 		}
 		else
 		{
-			// strategy = new IDSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
+			strategy = new IDSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
 		}
 	}
 
@@ -48,35 +47,20 @@ public class RouteFindingAgent {
 
 	public void runStrategy()
 	{
-		// System.out.println("wops");
-
 		while (!this.goalCheck()) {
 			int pinapuntaSa = strategy.traverse( environment.getDirections( currentState ) );
 			System.out.println(currentState + " ==> " + environment.getDirections( currentState ));
 			this.move( pinapuntaSa );
-			// System.out.println("nandito ako: " + this.currentState);
 		}
-
-		// System.out.println("wokay\n");
-		System.out.println( strategy.getRoute( currentState ) );
+		strategy.printRoute();
 		return;
 	}
 
 	private void move( int newState )
-	{
-		// if (visitedLocations.contains( newState ))
-		// {
-		// 	System.out.println("ayoko nga. galing na ko diyan dati");
-		// }
-		// if (newState == -1)
-		// {
-		// 	System.out.println("Wala naman direction na yan");
-		// }
-		
+	{	
 		int oldLocation = this.currentState;
 		this.previousState = oldLocation;
 		this.currentState = newState;
-		visitedLocations.add( newState );
-	
+		this.visitedLocations.add( newState );
 	}
 }

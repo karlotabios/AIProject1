@@ -68,7 +68,7 @@ public class IslandHopper {
 			return;
 		}
 
-		//three numbers after strategy is identified are nitial location/island, goal island
+		//two numbers after strategy is identified are initial location/island, goal island
 		initialState = sc.nextInt();
 		goalState = sc.nextInt();
 
@@ -79,8 +79,6 @@ public class IslandHopper {
 		RouteFindingAgent agent = new RouteFindingAgent( initialState, goalState, strategy, graph );
 
 		// run the solution from agent's strategy
-		// ArrayList<String> solution = new ArrayList<String>();
-		// solution = agent.runStrategy();
 		agent.runStrategy();
 		return;
 	}

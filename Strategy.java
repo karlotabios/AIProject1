@@ -5,9 +5,13 @@ public abstract class Strategy {
 
 	protected ArrayList<Integer> fringe = new ArrayList<Integer>();
 	protected ArrayList<Integer> route = new ArrayList<Integer>();
+	protected ArrayList<String> directionsFringe = new ArrayList<String>();
+	protected ArrayList<String> movementSequence = new ArrayList<String>();
 	protected int currentParentIndex;
 	protected int currentChildIndex;
 	private static int maxNumChildren;
+	private static final ArrayList<String> directions = new ArrayList<String>(Arrays.asList( "north", "north west", "west", "south west", "south", "south east", "east", "north east" ));
+
 
 	public Strategy( int maxNumDirections, int initialState, ArrayList<Integer> initialFringe )
 	{
@@ -15,16 +19,23 @@ public abstract class Strategy {
 		this.currentChildIndex = 0;
 		this.maxNumChildren = maxNumDirections;
 		this.fringe.add( initialState );
-		// extendFringe( initialFringe );
+		this.directionsFringe.add( "origin" );
 	}
 
 	public abstract int traverse( ArrayList<Integer> childNodes );
 
-    protected void extendFringe( ArrayList<Integer> additionalFringe )
+	// function for pushing these children into the fringe
+    protected void extendFringe( ArrayList<Integer> expansionNodes )
 	{
-    	for(int i = 0; i < additionalFringe.size(); i++)
+    	for(int i = 0; i < expansionNodes.size(); i++)
 		{
-			fringe.add(additionalFringe.get(i));
+			this.fringe.add( expansionNodes.get(i) );
+		}
+
+		// identical to the fringe, but is pushing directions instead of indices
+		for(int i = 0; i < directions.size(); i++)
+		{
+			this.directionsFringe.add( directions.get(i) );
 		}
 		return;
     }
@@ -37,39 +48,34 @@ public abstract class Strategy {
 
     private int getParentIndex( int child ) 
     {
-    	int temp = (child - 1) / maxNumChildren;
-        return temp;
+    	int parent = ( child - 1 ) / maxNumChildren;
+        return parent;
     }
 
     private void setNewParent( int parentIndex ) 
     {
-    	currentChildIndex = parentIndex;
+    	this.currentChildIndex = parentIndex;
     	return;
     }
 
+    //helper function for recursively getting the parent and storing them into a route and movementSequence
     private int trackSequence( int childIndex )
     {
     	int parent = this.getParentIndex( childIndex );
-    	route.add(0, fringe.get( childIndex ) );
+    	this.route.add(0, this.fringe.get( childIndex ) );
+    	this.movementSequence.add(0, this.directionsFringe.get( childIndex ) );
+
     	if ( childIndex == parent )
     	{
-    		return this.getParentIndex( childIndex );
+    		return parent;
     	}
-    	return this.trackSequence( this.getParentIndex( childIndex ) );
+    	return this.trackSequence( parent );
     }
 
-    public ArrayList<Integer> getRoute( int currentState )
+    public void printRoute()
     {
-    	this.trackSequence( currentChildIndex );
-    	System.out.println( "\n" );
-    	return route;
+    	this.trackSequence( this.currentChildIndex );
+    	System.out.println( "\nSolution:\n" + this.route + "\n" + this.movementSequence );
+    	return;
     }
-
-	// private void populateFringe()
-	// {
-	// 	if ( currentParentIndex != currentNodeIndex ) 
-	// 	{
-	// 		this.extendFringe( childNodes );
-	// 	}
-	// }
 }

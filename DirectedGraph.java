@@ -25,10 +25,11 @@ public class DirectedGraph {
         sc.close();
 
         //map out connected locations
-        System.out.println("adjacencyList.size(): " + adjacencyList.size());
+        System.out.println("Map configuration:");
         for (int m = 0; m < adjacencyList.size(); m++) {
             System.out.println("[" + m + "] => " + adjacencyList.get(m));
         }
+        System.out.println("\n");
     }
 
     public ArrayList<Integer> getDirections( int location )

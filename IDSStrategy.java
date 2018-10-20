@@ -1,9 +1,11 @@
 import java.util.*;
 import java.io.File;
 
-public class BFSStrategy extends Strategy {
+public class IDSStrategy extends Strategy {
 
-	public BFSStrategy( int maxNumDirections, int initialState, ArrayList<Integer> initialFringe )
+	protected ArrayList<Integer> visitedStack; = new ArrayList<Integer>();
+
+	public IDSStrategy( int maxNumDirections, int initialState, ArrayList<Integer> initialFringe )
 	{
 		super( maxNumDirections, initialState, initialFringe );
 	}
