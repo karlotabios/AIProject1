@@ -33,6 +33,8 @@ public class DirectedGraph {
 
     public ArrayList<Integer> getDirections(int location) {
         if (location > -1) {
+            // System.out.println("adjacencyList.get(location): " +
+            // adjacencyList.get(location));
             return adjacencyList.get(location);
         } else {
             return emptyLocation;

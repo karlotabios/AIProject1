@@ -12,22 +12,24 @@ public class RouteFindingAgent {
 	private int goalState;
 	private int currentState;
 	private int previousState;
-	private ArrayList<Integer> visitedLocations = new ArrayList<Integer>();
+	private ArrayList<Integer> visitedLocations;
 	// private ArrayList<String> actionSequence = new
 	// ArrayList<String>(Arrays.asList("n", "nw", "w", "sw", "s", "se", "e", "ne"));
 
 	public RouteFindingAgent(int initialState, int goalState, String strat, DirectedGraph environment) {
 		this.goalState = goalState;
 		this.environment = environment;
-
+		this.visitedLocations = new ArrayList<Integer>();
 		this.initialState = initialState;
 		move(initialState);
+		// System.out.println("Initial State: " + initialState);
 
 		// run search strategy
 		if (strat.toLowerCase().equals("bfs")) {
 			// strategy = new BFSStrategy(maxNumDirection, initialState,
 			// environment.getDirections(initialState));
-			strategy = new Strategy(maxNumDirection, initialState, environment.getDirections(initialState));
+			strategy = new Strategy(maxNumDirection, initialState, environment.getDirections(initialState),
+					environment);
 		} else {
 			// strategy = new IDSStrategy(maxNumDirection, initialState,
 			// environment.getDirections(initialState));
@@ -50,11 +52,11 @@ public class RouteFindingAgent {
 	// }
 
 	public int runStrategy() {
+		System.out.println("Current State (before first strategy iteration): " + currentState);
 		while (!this.goalCheck()) {
-			System.out.println("CurrentState: " + currentState);
-			currentState = this.move(strategy.traverse());
+			currentState = this.move(strategy.traverseWrapper());
+			// System.out.println("CurrentState (RFA.java): " + currentState);
 		}
-		// int value = currentState;
 		return currentState;
 	}
 
@@ -64,6 +66,7 @@ public class RouteFindingAgent {
 			this.previousState = oldLocation;
 			this.currentState = newState;
 			visitedLocations.add(newState);
+			// System.out.println("Visited locations: " + visitedLocations);
 		}
 		// else {
 
