@@ -1,17 +1,18 @@
-import java.util.*;
-import java.io.File;
+// import java.util.*;
+// import java.io.File;
 
-public class BFSStrategy extends Strategy {
+// public class BFSStrategy extends Strategy {
 
-	private int breadthLimit;
-	public BFSStrategy( int maxNumDirections )
-	{
-		super();
-		breadthLimit = maxNumDirections;
-	}
+// private int breadthLimit;
+// // private ArrayList<Integer> tempArrayList = new ArrayList<Integer>();
 
-	public int traverse( ArrayList<Integer> childNodes )
-	{
+// public BFSStrategy(int maxNumDirections) {
+// super(0);
+// breadthLimit = maxNumDirections;
+// }
 
-	}
-}
+// // public int traverse( ArrayList<Integer> childNodes )
+// // {
+
+// // }
+// }
