@@ -11,7 +11,6 @@ public class RouteFindingAgent {
 	private int goalState;
 	private int currentState;
 	private int previousState;
-	private ArrayList<Integer> visitedLocations = new ArrayList<Integer>();
 	// private ArrayList<String> actionSequence = new ArrayList<String>(Arrays.asList("n", "nw", "w", "sw", "s", "se", "e", "ne"));
 
 	public RouteFindingAgent( int initialState, int goalState, String strat, DirectedGraph environment )
@@ -20,7 +19,6 @@ public class RouteFindingAgent {
 		this.environment = environment;
 		this.initialState = initialState;
 		this.currentState = this.initialState;
-		this.visitedLocations.add( initialState );
 
 		//run search strategy
 		if (strat.toLowerCase().equals("bfs"))
@@ -61,6 +59,5 @@ public class RouteFindingAgent {
 		int oldLocation = this.currentState;
 		this.previousState = oldLocation;
 		this.currentState = newState;
-		this.visitedLocations.add( newState );
 	}
 }

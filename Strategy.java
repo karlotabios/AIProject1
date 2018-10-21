@@ -40,7 +40,7 @@ public abstract class Strategy {
 		return;
     }
 
-    private int getChild( int parentIndex, int rank ) 
+    private int getChildIndex( int parentIndex, int rank ) 
     {
         //rank is from left to right (1 to 8 only; 1 to left-most, 8 to right-most);
         return ( maxNumChildren * parentIndex ) + rank;
@@ -48,7 +48,7 @@ public abstract class Strategy {
 
     private int getParentIndex( int child ) 
     {
-    	int parent = ( child - 1 ) / maxNumChildren;
+    	int parent = ( child - 1 ) / this.maxNumChildren;
         return parent;
     }
 
@@ -56,6 +56,11 @@ public abstract class Strategy {
     {
     	this.currentChildIndex = parentIndex;
     	return;
+    }
+
+    private int getLastNonLeafNodeIndedx() 
+    {
+    	return ( fringe.size() - 2 ) / this.maxNumChildren;
     }
 
     //helper function for recursively getting the parent and storing them into a route and movementSequence
