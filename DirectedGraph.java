@@ -5,21 +5,40 @@ public class DirectedGraph {
 
     //max number of directions for which an agent may use to traverse the environment
     private static final int maxNumDirection = 8;
+    
+    //an island's weight is non existent so it's NULL
+    private static final int emptyLocationWeight = NULL;
 
+    //this is the list of islands denoted as it's adjacency list (that's why it's a list of lists)
     protected ArrayList<ArrayList<Integer>> adjacencyList = new ArrayList<ArrayList<Integer>>();
+
+    // this is the island weights as a list; the index is the island's name itself (ex. island '0' is 'islandWeights.get(0)')
+    protected ArrayList<Integer> islandWeights = new ArrayList<Integer>();
+
+    //this is the island for -1 islands; also known as the non existent island (it is connected to 8 non existent islands); it's used as a buffer only, and there's no use going to it
     protected ArrayList<Integer> emptyLocation = new ArrayList<Integer>(Arrays.asList(-1, -1, -1, -1, -1, -1, -1, -1));
 
     public DirectedGraph(Scanner sc) 
     {
-        int i = 0;
+        int islandNum = sc.nextInt();
+        int scIterator = 0;
+        int adjacencyListIterator = 0;
         while (sc.hasNext()) {
-            ArrayList<Integer> adjacentLocations = new ArrayList<Integer>();
-            adjacencyList.add(adjacentLocations);
-            for (int m = 0; m < maxNumDirection; ++m) {
-                int adjacent = sc.nextInt();
-                adjacencyList.get(i).add(adjacent);
+            if (scIterator < islandNum) {
+                //ito yung island weights
+                int weight = sc.nextInt();
+                islandWeights.add(weight);
+                scIterator++;
+            } else {
+                //ito na yung island
+                ArrayList<Integer> adjacentLocations = new ArrayList<Integer>();
+                adjacencyList.add(adjacentLocations);
+                for (int m = 0; m < maxNumDirection; ++m) {
+                    int adjacent = sc.nextInt();
+                    adjacencyList.get(adjacencyListIterator).add(adjacent);
+                }
+                adjacencyListIterator++;
             }
-            i++;
         }
 
         sc.close();
@@ -44,4 +63,15 @@ public class DirectedGraph {
         }
     }
 
+    public int getIslandWeight( int location )
+    {
+        if (location > -1)
+        {
+            return islandWeights.get(location);
+        }
+        else
+        {
+            return emptyLocationWeight;
+        }
+    }
 }
