@@ -61,7 +61,12 @@ public class IslandHopper {
 			strategy = sc.next();
 		}
 
-		if ((!strategy.toLowerCase().equals("bfs")) && (!strategy.toLowerCase().equals("ids")))
+		if (
+			(!strategy.toLowerCase().equals("bfs")) && 
+			(!strategy.toLowerCase().equals("ids")) &&
+			(!strategy.toLowerCase().equals("greedy")) && 
+			(!strategy.toLowerCase().equals("astar"))
+			)
 		{
 			System.out.println("'strategy' parameter not BFS or IDS\ninputted: '" + strategy + "'\n");
 			errorMessage();

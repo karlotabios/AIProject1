@@ -23,6 +23,7 @@ public abstract class Strategy {
 	}
 
 	public abstract int traverse( ArrayList<Integer> childNodes );
+    public abstract int traverse( ArrayList<Integer> childNodes, ArrayList<Integer> childNodeWeights );
 
 	// function for pushing these children into the fringe
     protected void extendFringe( ArrayList<Integer> expansionNodes )
@@ -32,7 +33,7 @@ public abstract class Strategy {
 			this.fringe.add( expansionNodes.get(i) );
 		}
 
-		// identical to the fringe, but is pushing directions instead of indices
+		// identical to the fringe, but is pushing directions instead of indices; used for printing out the solution later
 		for(int i = 0; i < directions.size(); i++)
 		{
 			this.directionsFringe.add( directions.get(i) );

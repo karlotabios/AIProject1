@@ -7,6 +7,7 @@ public class RouteFindingAgent {
 
 	private DirectedGraph environment;
 	private Strategy strategy;
+	private String stratType;
 	private int initialState;
 	private int goalState;
 	private int currentState;
@@ -19,15 +20,20 @@ public class RouteFindingAgent {
 		this.environment = environment;
 		this.initialState = initialState;
 		this.currentState = this.initialState;
+		this.stratType = strat.toLowerCase();
 
 		//run search strategy
 		if (strat.toLowerCase().equals("bfs"))
 		{
 			strategy = new BFSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
 		}
+		// else if (strat.toLowerCase().equals("bfs"))
+		// {
+		// 	strategy = new IDSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
+		// }
 		else
 		{
-			strategy = new IDSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
+			strategy = new GreedyStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
 		}
 	}
 
@@ -45,10 +51,32 @@ public class RouteFindingAgent {
 
 	public void runStrategy()
 	{
-		while (!this.goalCheck()) {
-			int pinapuntaSa = strategy.traverse( environment.getDirections( currentState ) );
-			System.out.println(currentState + " ==> " + environment.getDirections( currentState ));
-			this.move( pinapuntaSa );
+		if ((this.stratType.equals("bfs")) || (this.stratType.equals("ids"))) {
+			while (!this.goalCheck()) {
+				//alamin mo kung saan ka papapuntahin based on kung saan ka ngayon at sa kung ano sabi sa yo ng strategy mo
+				int pinapuntaSa = strategy.traverse( environment.getDirections( currentState ) );
+
+				//sabihin mo kung saan ka ngayon at kung saan ka pwede pumunta
+				System.out.println(currentState + " ==> " + environment.getDirections( currentState ));
+
+				//punta ka na sa kung saan ka pinapapunta
+				this.move( pinapuntaSa );
+			}
+		}
+		else {
+			while (!this.goalCheck()) {
+				//alamin mo kung saan ka papapuntahin based on kung saan ka ngayon at kung ano yung weights nung mga island at sa kung ano sabi sa yo ng strategy mo
+				int pinapuntaSa = strategy.traverse( environment.getDirections( currentState ), environment.getIslandWeights( currentState ) );
+
+				//sabihin mo kung saan ka ngayon at kung saan ka pwede pumunta
+				System.out.println(currentState + " == Adjacent Islands ==> " + environment.getDirections( currentState ));
+
+				//sabihin mo kung saan ka ngayon at kung saan ka pwede pumunta
+				System.out.println(currentState + " == Island Weights ==> " + environment.getIslandWeights( currentState ));
+
+				//punta ka na sa kung saan ka pinapapunta
+				this.move( pinapuntaSa );
+			}
 		}
 		strategy.printRoute();
 		return;
