@@ -1,13 +1,16 @@
 ﻿<h1><b>ISLAND-HOPPING AGENT</b></h1>
-<h2>Island-Hopping Agent, or Island Hopper, is a group project for the Artificial Intelligence (CS 271) Class of Ateneo de Manila University.</h2>
+Island-Hopping Agent, or Island Hopper, is a group project for the Artificial Intelligence (CS 271) Class of Ateneo de Manila University.
 
-<h2>CS 271 - Project 1 README</h2>
-<h2>First Semester, AY 2018 - 2019</h2>
+________________
 
-<h2>Students</h2>
-<h3>Tabios, Karlo Justin V.</h3>
-<h3>Wenceslao, Stephen John Matthew C.</h3>
+<p>CS 271 - Project 1 README</p>
+<p>First Semester, AY 2018 - 2019</p>
 
+<p>Students</p>
+<ul>
+	<li>Tabios, Karlo Justin V.</li>
+	<li>Wenceslao, Stephen John Matthew C.</li>
+</ul>
 ________________
 
 <h3><b>PEAS Description</b></h3>
