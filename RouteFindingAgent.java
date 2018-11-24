@@ -2,8 +2,9 @@ import java.util.*;
 import java.io.File;
 
 public class RouteFindingAgent {
-	//max number of directions for which an agent may use to traverse the environment
-    private static final int maxNumDirection = 8;
+	// max number of directions for which an agent may use to traverse the
+	// environment
+	private static final int maxNumDirection = 8;
 
 	private DirectedGraph environment;
 	private Strategy strategy;
@@ -11,51 +12,45 @@ public class RouteFindingAgent {
 	private int goalState;
 	private int currentState;
 	private int previousState;
-	// private ArrayList<String> actionSequence = new ArrayList<String>(Arrays.asList("n", "nw", "w", "sw", "s", "se", "e", "ne"));
+	// private ArrayList<String> actionSequence = new
+	// ArrayList<String>(Arrays.asList("n", "nw", "w", "sw", "s", "se", "e", "ne"));
 
-	public RouteFindingAgent( int initialState, int goalState, String strat, DirectedGraph environment )
-	{		
+	public RouteFindingAgent(int initialState, int goalState, String strat, DirectedGraph environment) {
 		this.goalState = goalState;
 		this.environment = environment;
 		this.initialState = initialState;
 		this.currentState = this.initialState;
 
-		//run search strategy
-		if (strat.toLowerCase().equals("bfs"))
-		{
-			strategy = new BFSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
+		// run search strategy
+		if (strat.toLowerCase().equals("bfs")) {
+			strategy = new BFSStrategy(maxNumDirection, initialState, environment.getDirections(initialState));
 		}
-		else
-		{
-			strategy = new IDSStrategy( maxNumDirection, initialState, environment.getDirections( initialState ) );
-		}
+		// else
+		// {
+		// strategy = new IDSStrategy( maxNumDirection, initialState,
+		// environment.getDirections( initialState ) );
+		// }
 	}
 
-	public boolean goalCheck()
-	{
-		if (currentState == goalState)
-		{
+	public boolean goalCheck() {
+		if (currentState == goalState) {
 			return true;
-		}
-		else
-		{
+		} else {
 			return false;
 		}
 	}
 
-	public void runStrategy()
-	{
+	public void runStrategy() {
 		while (!this.goalCheck()) {
-			int pinapuntaSa = strategy.traverse( environment.getDirections( currentState ) );
-			System.out.println(currentState + " ==> " + environment.getDirections( currentState ));
-			this.move( pinapuntaSa );
+			int pinapuntaSa = strategy.traverse(environment.getDirections(currentState));
+			System.out.println(currentState + " ==> " + environment.getDirections(currentState));
+			this.move(pinapuntaSa);
 		}
 		strategy.printRoute();
 		return;
 	}
 
-	private void move( int newState )
-	{	
+	private void move(int newState) {
 		int oldLocation = this.currentState;
 		this.previousState = oldLocation;
 		this.currentState = newState;
