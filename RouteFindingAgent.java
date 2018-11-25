@@ -43,8 +43,9 @@ public class RouteFindingAgent {
 	public void runStrategy() {
 		while (!this.goalCheck()) {
 			int pinapuntaSa = strategy.traverse(environment.getDirections(currentState));
-			System.out.println(currentState + " ==> " + environment.getDirections(currentState));
+			System.out.println(currentState + " ===> " + environment.getDirections(currentState));
 			this.move(pinapuntaSa);
+			System.out.println("papuntaSa " + pinapuntaSa);
 		}
 		strategy.printRoute();
 		return;
