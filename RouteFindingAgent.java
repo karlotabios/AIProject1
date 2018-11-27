@@ -12,6 +12,9 @@ public class RouteFindingAgent {
 	private int goalState;
 	private int currentState;
 	private int previousState;
+
+	private Scanner sc;
+	private ArrayList<Integer> route = new ArrayList<>();
 	// private ArrayList<String> actionSequence = new
 	// ArrayList<String>(Arrays.asList("n", "nw", "w", "sw", "s", "se", "e", "ne"));
 
@@ -22,14 +25,11 @@ public class RouteFindingAgent {
 		this.currentState = this.initialState;
 
 		// run search strategy
-		if (strat.toLowerCase().equals("bfs")) {
-			strategy = new BFSStrategy(maxNumDirection, initialState, environment.getDirections(initialState));
+		if (strat.toLowerCase().equals("bestfirstsearch")) {
+			strategy = new BestFirstSearch(maxNumDirection, initialState, environment.getDirections(initialState));
+		} else if (strat.toLowerCase().equals("astarsearch")) {
+			strategy = new AStarSearch(maxNumDirection, initialState, environment.getDirections(initialState));
 		}
-		// else
-		// {
-		// strategy = new IDSStrategy( maxNumDirection, initialState,
-		// environment.getDirections( initialState ) );
-		// }
 	}
 
 	public boolean goalCheck() {
@@ -41,13 +41,23 @@ public class RouteFindingAgent {
 	}
 
 	public void runStrategy() {
+		sc = new Scanner(System.in);
 		while (!this.goalCheck()) {
-			int pinapuntaSa = strategy.traverse(environment.getDirections(currentState));
-			System.out.println(currentState + " ===> " + environment.getDirections(currentState));
+			System.out.println("currentState: " + currentState);
+			route.add(currentState);
+			int pinapuntaSa = strategy.traverse(environment.getDirections(currentState)); // calls extendFringe()
+			System.out.println(currentState + " => " + environment.getDirections(currentState));
+			// environment.getDirections(currentState) : 3 ==> [0, 2, 4, 5, 6, 7, -1, -1]
 			this.move(pinapuntaSa);
-			System.out.println("papuntaSa " + pinapuntaSa);
+			System.out.println("Continue? yes/no");
+			String s = sc.nextLine();
+			if (!s.equalsIgnoreCase("yes")) {
+				break;
+			}
 		}
-		strategy.printRoute();
+		sc.close();
+		// strategy.printRoute();
+		System.out.println("You have reached your destination: " + currentState + " (route taken: " + route + ")");
 		return;
 	}
 

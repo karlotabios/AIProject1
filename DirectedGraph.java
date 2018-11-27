@@ -6,6 +6,7 @@ public class DirectedGraph {
     // max number of directions for which an agent may use to traverse the
     // environment
     private static final int maxNumDirection = 8;
+    public int mapSize = maxNumDirection;
 
     protected ArrayList<ArrayList<Integer>> adjacencyList = new ArrayList<ArrayList<Integer>>();
     protected ArrayList<Integer> emptyLocation = new ArrayList<Integer>(Arrays.asList(-1, -1, -1, -1, -1, -1, -1, -1));

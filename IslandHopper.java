@@ -1,10 +1,11 @@
 import java.util.*;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class IslandHopper {
 
 	// launcher for AI project1
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception, FileNotFoundException {
 		// read input from console
 		Scanner sc;
 		File file = null;
@@ -54,8 +55,9 @@ public class IslandHopper {
 			strategy = sc.next();
 		}
 
-		if ((!strategy.toLowerCase().equals("bfs")) && (!strategy.toLowerCase().equals("ids"))) {
-			System.out.println("'strategy' parameter not BFS or IDS\ninputted: '" + strategy + "'\n");
+		if ((!strategy.toLowerCase().equals("bestfirstsearch")) && (!strategy.toLowerCase().equals("astarsearch"))) {
+			System.out
+					.println("'strategy' parameter not bestfirstsearch or astarsearch\ninputted: '" + strategy + "'\n");
 			errorMessage();
 			return;
 		}
@@ -72,7 +74,7 @@ public class IslandHopper {
 		RouteFindingAgent agent = new RouteFindingAgent(initialState, goalState, strategy, graph);
 
 		// run the solution from agent's strategy
-		agent.runStrategy();
+		// agent.runStrategy();
 		return;
 	}
 
