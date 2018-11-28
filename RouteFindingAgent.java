@@ -46,16 +46,15 @@ public class RouteFindingAgent {
 			System.out.println("currentState: " + currentState);
 			route.add(currentState);
 			int pinapuntaSa = strategy.traverse(environment.getDirections(currentState)); // calls extendFringe()
-			System.out.println(currentState + " => " + environment.getDirections(currentState));
 			// environment.getDirections(currentState) : 3 ==> [0, 2, 4, 5, 6, 7, -1, -1]
 			this.move(pinapuntaSa);
 			System.out.println("Continue? yes/no");
 			String s = sc.nextLine();
 			if (!s.equalsIgnoreCase("yes")) {
+				sc.close();
 				break;
 			}
 		}
-		sc.close();
 		// strategy.printRoute();
 		System.out.println("You have reached your destination: " + currentState + " (route taken: " + route + ")");
 		return;

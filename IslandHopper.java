@@ -74,7 +74,7 @@ public class IslandHopper {
 		RouteFindingAgent agent = new RouteFindingAgent(initialState, goalState, strategy, graph);
 
 		// run the solution from agent's strategy
-		// agent.runStrategy();
+		agent.runStrategy();
 		return;
 	}
 

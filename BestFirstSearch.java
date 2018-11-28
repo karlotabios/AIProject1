@@ -2,9 +2,11 @@ import java.util.*;
 import java.io.File;
 
 public class BestFirstSearch extends Strategy {
+	int mapSize;
 
 	public BestFirstSearch(int maxNumDirections, int initialState, ArrayList<Integer> initialFringe) {
 		super(maxNumDirections, initialState, initialFringe);
+		mapSize = maxNumDirections;
 	}
 
 	public int traverse(ArrayList<Integer> childNodes) {
@@ -17,11 +19,10 @@ public class BestFirstSearch extends Strategy {
 		System.out.println("targetIndex: " + targetIndex + " (" + process(fringe) + ")");
 		fringe.clear();
 		fringe.add(targetIndex);
-		System.out.println("Pinili: " + fringe);
 		return targetIndex;
 	}
 
-	public int process(ArrayList<Integer> fringe) {
+	private int process(ArrayList<Integer> fringe) {
 		// outputs the minimum value (not index) from the SLD heuristic values of the
 		// current fringe.
 		ArrayList<Integer> sldCopy = new ArrayList<>();

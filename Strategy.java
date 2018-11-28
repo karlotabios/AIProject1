@@ -32,8 +32,6 @@ public abstract class Strategy {
 		this.sldValues.add(0); // island 7
 	}
 
-	public abstract int process(ArrayList<Integer> fringe);
-
 	public abstract int traverse(ArrayList<Integer> childNodes);
 
 	protected int getIndexSLD(int val) {
@@ -54,7 +52,6 @@ public abstract class Strategy {
 				// System.out.println("Skippping since -1");
 				// System.out.print(" ");
 			} else {
-				System.out.println("Adding: " + expansionNodes.get(i));
 				this.fringe.add(expansionNodes.get(i));
 			}
 		}
